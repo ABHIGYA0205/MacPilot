@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Python
+server/venv/
+server/__pycache__/
+server/*.pyc
+
+# Android
+android/.gradle/
+android/build/
+android/**/build/
+android/local.properties
+
+# Android Studio
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# Environment
+.env
