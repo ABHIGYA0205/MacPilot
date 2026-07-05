@@ -3,3 +3,4 @@ uvicorn
 psutil
 python-multipart
 pydantic
+dotenv
