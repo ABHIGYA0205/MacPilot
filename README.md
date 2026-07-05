@@ -59,28 +59,58 @@ Examples:
 - Confirmation dialog for dangerous actions
 
 ---
+<h2>📱 Screenshots</h2>
 
-# 📱 Screenshots
+<table align="center">
+<tr>
+    <td align="center"><b>Dashboard</b></td>
+    <td align="center"><b>Live Screen</b></td>
+    <td align="center"><b>Controls</b></td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="screenshots/dashboard.jpeg">
+        <img src="screenshots/dashboard.jpeg" width="220"/>
+      </a>
+    </td>
+    <td align="center">
+      <a href="screenshots/screen.jpeg">
+        <img src="screenshots/screen.jpeg" width="220"/>
+      </a>
+    </td>
+    <td align="center">
+      <a href="screenshots/controls.jpeg">
+        <img src="screenshots/controls.jpeg" width="220"/>
+      </a>
+    </td>
+  </tr>
 
-## 📱 Screenshots
+  
 
-### Dashboard
-![Dashboard](screenshots/dashboard.jpeg)
+  <tr>
+    <td align="center">
+      <a href="screenshots/clipboard.jpeg">
+        <img src="screenshots/clipboard.jpeg" width="220"/>
+      </a>
+    </td>
+    <td align="center">
+      <a href="screenshots/assistant.jpeg">
+        <img src="screenshots/assistant.jpeg" width="220"/>
+      </a>
+    </td>
+    <td align="center">
+      <a href="screenshots/settings.jpeg">
+        <img src="screenshots/settings.jpeg" width="220"/>
+      </a>
+    </td>
+  </tr>
 
-### Live Screen
-![Screen](screenshots/screen.jpeg)
-
-### Controls
-![Controls](screenshots/controls.jpeg)
-
-### Clipboard
-![Clipboard](screenshots/clipboard.jpeg)
-
-### AI Assistant
-![Assistant](screenshots/assistant.jpeg)
-
-### Settings
-![Settings](screenshots/settings.jpeg)
+  <tr>
+    <td align="center"><b>Clipboard</b></td>
+    <td align="center"><b>AI Assistant</b></td>
+    <td align="center"><b>Settings</b></td>
+  </tr>
+</table>
 
 ---
 
