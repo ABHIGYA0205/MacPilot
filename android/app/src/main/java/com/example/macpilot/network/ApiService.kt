@@ -1,15 +1,48 @@
 package com.example.macpilot.network
 
-import com.example.macpilot.model.StatusResponse
+import com.example.macpilot.model.*
+import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
 
-    @POST("lock")
-    suspend fun lockMac(): Response<Unit>
-
     @GET("status")
-    suspend fun getStatus(): Response<StatusResponse>
+    suspend fun getStatus(
+        @Header("X-API-Key") apiKey: String
+    ): Response<StatusResponse>
+
+    @GET("clipboard")
+    suspend fun getClipboard(
+        @Header("X-API-Key") apiKey: String
+    ): Response<ClipboardResponse>
+
+    @POST("clipboard")
+    suspend fun setClipboard(
+        @Header("X-API-Key") apiKey: String,
+        @Body request: ClipboardRequest
+    ): Response<Unit>
+
+    @POST("command")
+    suspend fun executeCommand(
+        @Header("X-API-Key") apiKey: String,
+        @Body request: CommandRequest
+    ): Response<Unit>
+
+    @GET("volume")
+    suspend fun getVolume(
+        @Header("X-API-Key") apiKey: String
+    ): Response<VolumeResponse>
+
+    @POST("volume")
+    suspend fun setVolume(
+        @Header("X-API-Key") apiKey: String,
+        @Body request: VolumeRequest
+    ): Response<Unit>
+
+    @GET("screenshot")
+    suspend fun getScreenshot(
+        @Header("X-API-Key") apiKey: String
+    ): Response<ResponseBody>
+
 }

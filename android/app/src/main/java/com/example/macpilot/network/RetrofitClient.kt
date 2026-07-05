@@ -1,17 +1,36 @@
 package com.example.macpilot.network
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://10.195.127.139:8000/"
+    private var retrofit: Retrofit? = null
+    private var currentBaseUrl = ""
 
-    val api: ApiService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
+    fun getApi(baseUrl: String): ApiService {
+
+        if (retrofit == null || currentBaseUrl != baseUrl) {
+
+            currentBaseUrl = baseUrl
+
+            val logging = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.HEADERS
+            }
+
+            val client = OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build()
+
+            retrofit = Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+
+        return retrofit!!.create(ApiService::class.java)
     }
 }
