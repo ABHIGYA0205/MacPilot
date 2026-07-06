@@ -31,13 +31,14 @@ fun AIScreen(
 
     val suggestions = listOf(
         "Open Chrome",
+        "Open Brave",
+        "cam",
+        "scare",
         "Open VS Code",
-        "Lock Mac",
-        "Sleep Mac",
-        "Restart Mac",
-        "Shutdown Mac",
         "Open Downloads",
-        "Open Terminal"
+        "Open Terminal",
+        "bt on",
+        "bt off"
     )
 
     Column(

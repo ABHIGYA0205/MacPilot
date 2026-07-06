@@ -8,13 +8,29 @@ import tempfile
 import os
 from fastapi import Header, HTTPException
 from dotenv import load_dotenv
-
+from pydantic import BaseModel
+from mouse import (
+    move_mouse,
+    left_click,
+    right_click,
+    scroll_mouse
+)
+from fastapi import WebSocket
+import json
+import shlex
+import tempfile
+import subprocess
 
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 
+class MouseMoveRequest(BaseModel):
+    dx: float
+    dy: float
 
+class MouseClickRequest(BaseModel):
+    button: str
 class CommandRequest(BaseModel):
     command: str
 
@@ -23,6 +39,8 @@ class VolumeRequest(BaseModel):
 
 class VolumeRequest(BaseModel):
     value: int
+class MouseScrollRequest(BaseModel):
+    dy: float
 app = FastAPI()
 
 
@@ -248,6 +266,63 @@ def execute_command(
             return {
                 "success": True,
                 "message": "Spotify opened"
+            }
+        elif "cam" in command:
+
+            subprocess.run(["open", "-a", "Photo Booth"])
+
+            return {
+                "success": True,
+                "message": "Photo Booth opened"
+            }
+        
+        elif "scare" in command:
+           
+
+            cmd = """
+            clear
+            figlet WARNING
+            sleep 1
+            echo "UNAUTHORIZED ACCESS DETECTED"
+            sleep 1
+            figlet "I CAN SEE YOU!"
+            """
+
+            with tempfile.NamedTemporaryFile(mode="w", suffix=".sh", delete=False) as f:
+                f.write(cmd)
+                script_path = f.name
+
+            subprocess.run(["chmod", "+x", script_path])
+
+            apple_script = f'''
+            tell application "Terminal"
+                activate
+                do script "{script_path}"
+            end tell
+            '''
+
+            subprocess.run(["osascript", "-e", apple_script])
+
+            return {
+                "success": True,
+                "message": "Scared"
+    }
+        elif "bt on" in command.lower():
+
+            subprocess.run(["blueutil", "--power", "1"])
+
+            return {
+                "success": True,
+                "message": "Bluetooth enabled"
+            }
+
+        elif "bt off" in command.lower():
+
+            subprocess.run(["blueutil", "--power", "0"])
+
+            return {
+                "success": True,
+                "message": "Bluetooth disabled"
             }
         # ---------------- FOLDERS ----------------
 
@@ -500,3 +575,75 @@ def get_screenshot(
             "success": False,
             "error": str(e)
         }
+    
+@app.post("/mouse/move")
+def mouse_move(
+    request: MouseMoveRequest,
+    x_api_key: str = Header(None)
+):
+    verify_api_key(x_api_key)
+
+    move_mouse(request.dx, request.dy)
+
+    return {"status": "ok"}
+
+
+@app.post("/mouse/click")
+def mouse_click(
+    request: MouseClickRequest,
+    x_api_key: str = Header(None)
+):
+    verify_api_key(x_api_key)
+
+    if request.button == "left":
+        left_click()
+
+    elif request.button == "right":
+        right_click()
+
+    return {"status": "ok"}
+
+@app.post("/mouse/scroll")
+def mouse_scroll(
+    request: MouseScrollRequest,
+    x_api_key: str = Header(None)
+):
+
+    verify_api_key(x_api_key)
+
+    scroll_mouse(request.dy)
+
+    return {"status": "ok"}
+@app.websocket("/ws/touchpad")
+async def touchpad_socket(ws: WebSocket):
+
+    await ws.accept()
+
+    while True:
+
+        message = await ws.receive_text()
+
+        data = json.loads(message)
+
+        event = data["type"]
+
+        if event == "move":
+
+            move_mouse(
+                data["dx"],
+                data["dy"]
+            )
+
+        elif event == "left":
+
+            left_click()
+
+        elif event == "right":
+
+            right_click()
+
+        elif event == "scroll":
+
+            scroll_mouse(
+                data["dy"]
+            )

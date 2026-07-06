@@ -5,7 +5,9 @@ import com.example.macpilot.datastore.SettingsDataStore
 import com.example.macpilot.model.*
 import com.example.macpilot.network.RetrofitClient
 import kotlinx.coroutines.flow.first
-
+import com.example.macpilot.model.MouseMoveRequest
+import com.example.macpilot.model.MouseClickRequest
+import com.example.macpilot.model.MouseScrollRequest
 private const val API_KEY = "macpilot-secret-key"
 
 class MacRepository(
@@ -65,5 +67,29 @@ class MacRepository(
 
     suspend fun getScreenshot() =
         api().getScreenshot(API_KEY)
+
+    suspend fun moveMouse(
+        dx: Float,
+        dy: Float
+    ) =
+        api().moveMouse(
+            API_KEY,
+            MouseMoveRequest(dx, dy)
+        )
+
+    suspend fun mouseClick(
+        button: String
+    ) =
+        api().mouseClick(
+            API_KEY,
+            MouseClickRequest(button)
+        )
+    suspend fun scrollMouse(
+        dy: Float
+    ) =
+        api().scrollMouse(
+            API_KEY,
+            MouseScrollRequest(dy)
+        )
 
 }

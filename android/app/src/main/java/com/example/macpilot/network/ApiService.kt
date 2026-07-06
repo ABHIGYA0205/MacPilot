@@ -5,6 +5,9 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
+import com.example.macpilot.model.MouseMoveRequest
+import com.example.macpilot.model.MouseClickRequest
+import com.example.macpilot.model.MouseScrollRequest
 interface ApiService {
 
     @GET("status")
@@ -44,5 +47,22 @@ interface ApiService {
     suspend fun getScreenshot(
         @Header("X-API-Key") apiKey: String
     ): Response<ResponseBody>
+
+    @POST("mouse/move")
+    suspend fun moveMouse(
+        @Header("X-API-Key") apiKey: String,
+        @Body request: MouseMoveRequest
+    ): Response<Unit>
+
+    @POST("mouse/click")
+    suspend fun mouseClick(
+        @Header("X-API-Key") apiKey: String,
+        @Body request: MouseClickRequest
+    ): Response<Unit>
+    @POST("mouse/scroll")
+    suspend fun scrollMouse(
+        @Header("X-API-Key") apiKey: String,
+        @Body request: MouseScrollRequest
+    ): Response<Unit>
 
 }

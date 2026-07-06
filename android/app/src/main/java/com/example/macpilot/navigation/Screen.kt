@@ -14,4 +14,6 @@ sealed class Screen(val route: String) {
 
     object Screenshot : Screen("screen")
 
+    object Touchpad : Screen("touchpad")
+
 }

@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.*
 import com.example.macpilot.components.BottomBar
 import com.example.macpilot.screens.*
+import com.example.macpilot.screens.TouchpadScreen
 
 @Composable
 fun AppNavigation() {
@@ -58,6 +59,10 @@ fun AppNavigation() {
 
             composable(Screen.Settings.route) {
                 SettingsScreen(navController)
+            }
+
+            composable(Screen.Touchpad.route) {
+                TouchpadScreen(navController)
             }
 
 

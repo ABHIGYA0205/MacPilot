@@ -32,7 +32,8 @@ import com.example.macpilot.components.QuickActionCard
 import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.Terminal
 import androidx.compose.material.icons.rounded.Language
-
+import androidx.compose.material.icons.rounded.TouchApp
+import com.example.macpilot.navigation.Screen
 data class Metric(
     val icon: ImageVector,
     val title: String,
@@ -170,12 +171,13 @@ fun DashboardScreen(
                     }
                 }
 
+
                 item {
                     QuickActionCard(
-                        title = "Brave",
-                        icon = Icons.Rounded.Language
+                        title = "Touchpad",
+                        icon = Icons.Rounded.TouchApp
                     ) {
-                        vm.executeCommand("Open Brave")
+                        navController.navigate(Screen.Touchpad.route)
                     }
                 }
 

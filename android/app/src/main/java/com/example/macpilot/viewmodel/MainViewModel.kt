@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class MainViewModel(
     application: Application
@@ -234,6 +236,54 @@ class MainViewModel(
             } catch (_: Exception) {
 
             }
+
+        }
+
+    }
+    fun moveMouse(
+        dx: Float,
+        dy: Float
+    ) {
+
+        viewModelScope.launch {
+
+            try {
+
+                repository.moveMouse(dx, dy)
+
+            } catch (_: Exception) {
+
+            }
+
+        }
+
+    }
+    fun leftClick() {
+
+        viewModelScope.launch {
+
+            repository.mouseClick("left")
+
+        }
+
+    }
+
+    fun rightClick() {
+
+        viewModelScope.launch {
+
+            repository.mouseClick("right")
+
+        }
+
+    }
+    fun scrollMouse(
+        dy: Float
+    ) {
+
+        viewModelScope.launch {
+
+            repository.scrollMouse(dy)
 
         }
 
